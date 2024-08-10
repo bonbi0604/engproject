@@ -1,0 +1,3 @@
+npm install dotenv, mysql2, express, bcrypt
+npm install express-session --save
+

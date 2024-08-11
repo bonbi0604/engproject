@@ -27,7 +27,7 @@ app.post('/login', async(req, res)=>{
     if (!id || !passwd) {
         return res.status(400).json({ message: 'ID and password are required.' });
     }
-    const result = await login(id, passwd);
+    const result = await login(req, id, passwd);
     return res.status(result.status).json({message:result.message});
 });
 

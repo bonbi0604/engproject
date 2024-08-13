@@ -12,13 +12,6 @@ const port = 3306;
 const sessionSecret = crypto.randomBytes(128).toString('base64');
 process.env.SESSION_SECRET = sessionSecret || process.env.SESSION_SECRET;
 
-//session 설정
-app.use(session({
-    secret :'process.env.SESSION_SECRET',
-    resave : false,
-    saveUninitialized : true,
-    cookie : {secure : false}
-}));
 
 app.use(express.json());
 
@@ -32,7 +25,7 @@ app.post('/login', async(req, res)=>{
         status: result.status, 
         message:result.message, 
         sessionId : result.sessionId, 
-        token : token});
+        token : result.token});
 });
 
 

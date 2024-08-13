@@ -1,6 +1,5 @@
 const pool = require('./db');
 const crypto = require('crypto');
-
 const addUser = async (id, passwd) => {
     if (!id || !passwd) {
         throw new Error('ID and password are required.');

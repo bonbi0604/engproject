@@ -1,6 +1,4 @@
 npm install dotenv
-npm install dotenv mysql2
-npm install dotenv express
-npm install express-session --save
+npm install mysql2
+npm install express
 npm install jsonwebtoken
-

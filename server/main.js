@@ -28,14 +28,13 @@ app.post('/login', async(req, res)=>{
         return res.status(400).json({ message: 'ID and password are required.' });
     }
     const result = await login(req, id, passwd);
-    return res.status(result.status).json({message:result.message});
+    return res.status(result.status).json({
+        status: result.status, 
+        message:result.message, 
+        sessionId : result.sessionId, 
+        token : token});
 });
 
-
-// app.post('./logout', logInOut.logout);
-// app.get('/loginboard', logInOut.Auth, (req, res)=>{
-//     res.json({"message" : 'Welcom ${req.session.user}!'});
-// });
 
 app.post('/addUsers', async (req, res) => {
     const { id, passwd } = req.body;

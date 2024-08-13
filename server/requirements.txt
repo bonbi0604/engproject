@@ -1,3 +1,6 @@
-npm install dotenv, mysql2, express, bcrypt
+npm install dotenv
+npm install dotenv mysql2
+npm install dotenv express
 npm install express-session --save
+npm install jsonwebtoken
 

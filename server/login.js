@@ -12,7 +12,7 @@ const login = async(req, id, passwd)=>{
         )
         if(result.length >0){
             const token = jwt.sign({id : id}, my_key, {expiresIn : '24h'});
-            return {status:201, message : 'Login success', sessionId : req.sessionId, token : token};
+            return {status:201, message : 'Login success', sessionId : id, token : token};
         }else{
             return {status:401, message : 'Login failed'};
         }

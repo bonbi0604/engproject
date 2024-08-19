@@ -26,7 +26,7 @@ app.post('/login', async(req, res)=>{
     return res.status(result.status).json({
         status: result.status, 
         message:result.message, 
-        sessionId : result.sessionId, 
+        sessionId : result.sessionId,
         token : result.token});
 });
 
@@ -59,16 +59,12 @@ app.post('/addUsers', async (req, res) => {
     }
 });
 
-app.post('/FindUnlockEpi', async(req, res)=>{
+app.get('/FindUnlockEpi', async(req, res)=>{
     const {id, fairy_no} = req.body;
     try{
         const result = await FindUnlockEpi(id, fairy_no);
         res.status(200).json({
-            epi_no: result.epi_no,
-            title : result.title,
-            content : result.content,
-            kor : result.kor,
-            fairy_no : result.fairy_no
+            epi_no: result.epi_no
         })
     }catch(error){
         console.error('episode unlock error : ', error);

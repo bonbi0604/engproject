@@ -4,6 +4,8 @@ const {addUser} = require('./register')
 const {checkId} = require('./checkId');
 const session = require('express-session');
 const {login} = require('./login');
+const {FindUnlockEpi} = require('./FindUnlockEpi')
+const {saveEpi} = require('./saveEpi')
 const crypto = require('crypto');
 const app = express();
 const port = 3306;
@@ -28,6 +30,20 @@ app.post('/login', async(req, res)=>{
         token : result.token});
 });
 
+app.post('/saveEpi', async(req, res)=>{
+    const {id, epi_no} = req.body;
+    try{
+        const result = await saveEpi(id, epi_no);
+        if(result.success){
+            res.status(200).json({message : 'Episode saved'});
+        }else{
+            res.status(500).json({message:'Episode save failed'})
+        }
+    }catch(error){
+        res.status(500).json({message: 'ERROR OCCURED', error: error.message})
+    }
+});
+
 
 app.post('/addUsers', async (req, res) => {
     const { id, passwd } = req.body;
@@ -40,6 +56,23 @@ app.post('/addUsers', async (req, res) => {
     } catch (error) {
         console.error('Database error:', error);
         res.status(500).json({ message: 'Failed to add user.' });
+    }
+});
+
+app.post('/FindUnlockEpi', async(req, res)=>{
+    const {id, fairy_no} = req.body;
+    try{
+        const result = await FindUnlockEpi(id, fairy_no);
+        res.status(200).json({
+            epi_no: result.epi_no,
+            title : result.title,
+            content : result.content,
+            kor : result.kor,
+            fairy_no : result.fairy_no
+        })
+    }catch(error){
+        console.error('episode unlock error : ', error);
+        res.status(500).json({ error: 'An error occurred while fetching the episode.' });
     }
 });
 

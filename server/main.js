@@ -5,6 +5,7 @@ const {checkId} = require('./checkId');
 const session = require('express-session');
 const {login} = require('./login');
 const {FindUnlockEpi} = require('./FindUnlockEpi')
+const {FindUnlockFairy} = require('./FindUnlockFairy')
 const {saveEpi} = require('./saveEpi')
 const crypto = require('crypto');
 const app = express();
@@ -69,6 +70,19 @@ app.get('/FindUnlockEpi', async(req, res)=>{
     }catch(error){
         console.error('episode unlock error : ', error);
         res.status(500).json({ error: 'An error occurred while fetching the episode.' });
+    }
+});
+
+app.get('/FindUnlockFairy', async(req, res)=>{
+    const {id} = req.body;
+    try{
+        const result = await FindUnlockEpi(id);
+        res.status(200).json({
+            fairy_no: result.fairy_no
+        })
+    }catch(error){
+        console.error('오류 뜰 수가 없음', error);
+        res.status(500).json({ error: 'An error occurred while find FAIRYTALE.' });
     }
 });
 

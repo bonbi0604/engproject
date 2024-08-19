@@ -10,7 +10,6 @@ const FindUnlockEpi = async(id, fairy_no) =>{
         return {epi_no: result.epi_no}
     }
 }
-
 module.exports ={
     FindUnlockEpi
 };

@@ -61,7 +61,7 @@ app.post('/addUsers', async (req, res) => {
 });
 
 app.get('/FindUnlockEpi', async(req, res)=>{
-    const {id, fairy_no} = req.body;
+    const {id, fairy_no} = req.query;
     try{
         const result = await FindUnlockEpi(id, fairy_no);
         res.status(200).json({
@@ -74,9 +74,9 @@ app.get('/FindUnlockEpi', async(req, res)=>{
 });
 
 app.get('/FindUnlockFairy', async(req, res)=>{
-    const {id} = req.body;
+    const {id} = req.query;
     try{
-        const result = await FindUnlockEpi(id);
+        const result = await FindUnlockFairy(id);
         res.status(200).json({
             fairy_no: result.fairy_no
         })

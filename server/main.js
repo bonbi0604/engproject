@@ -74,11 +74,12 @@ app.get('/FindUnlockEpi', async(req, res)=>{
 });
 
 app.get('/FindUnlockFairy', async(req, res)=>{
-    const {id} = req.body;
+    const {id} = req.query; //get방식은 query라고 함
     try{
         const result = await FindUnlockEpi(id);
         res.status(200).json({
-            fairy_no: result.fairy_no
+            fairy_no: result.fairy_no,
+            total_episode : result.total_episode
         })
     }catch(error){
         console.error('오류 뜰 수가 없음', error);

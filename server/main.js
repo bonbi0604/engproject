@@ -61,11 +61,12 @@ app.post('/addUsers', async (req, res) => {
 });
 
 app.get('/FindUnlockEpi', async(req, res)=>{
-    const {id, fairy_no} = req.body;
+    const {id, fairy_no} = req.query;
     try{
         const result = await FindUnlockEpi(id, fairy_no);
         res.status(200).json({
-            epi_no: result.epi_no
+            epi_no: result.epi_no,
+            total_episode : result.total_episode
         })
     }catch(error){
         console.error('episode unlock error : ', error);
@@ -76,10 +77,9 @@ app.get('/FindUnlockEpi', async(req, res)=>{
 app.get('/FindUnlockFairy', async(req, res)=>{
     const {id} = req.query; //get방식은 query라고 함
     try{
-        const result = await FindUnlockEpi(id);
+        const result = await FindUnlockFairy(id);
         res.status(200).json({
-            fairy_no: result.fairy_no,
-            total_episode : result.total_episode
+            fairy_no: result.fairy_no
         })
     }catch(error){
         console.error('오류 뜰 수가 없음', error);

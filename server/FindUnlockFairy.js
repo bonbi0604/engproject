@@ -8,7 +8,7 @@ const FindUnlockFairy = async(id) =>{
     }
     const [total_episode] = await pool.query('SELECT COUNT(*) FROM episode WHERE fairy_no=?', [result.fairy_no]);
     return {
-        fairy_no: result.fairy_no
+        fairy_no: result[0].fairy_no
     }
 }
 module.exports ={

@@ -7,6 +7,8 @@ const {login} = require('./login');
 const {FindUnlockEpi} = require('./FindUnlockEpi')
 const {FindUnlockFairy} = require('./FindUnlockFairy')
 const {saveEpi} = require('./saveEpi')
+const {CollectedWords} = require('./CollectedWords')
+const {gatherWord} = require('./gatherWord')
 const crypto = require('crypto');
 const app = express();
 const port = 3306;
@@ -60,6 +62,17 @@ app.post('/addUsers', async (req, res) => {
     }
 });
 
+app.post('/gatherWord', async (req, res) => {
+    const { id, eng, fairy_no, epi_no } = req.body;
+    try {
+        await gatherWord(id, eng, fairy_no, epi_no);
+        console.log('Successfully Collect own word ->', id, eng, fairy_no, epi_no);
+    } catch (error) {
+        console.error('Database error:', error);
+        res.status(500).json({ message: 'Failed to add YOUR WORD.' });
+    }
+});
+
 app.get('/FindUnlockEpi', async(req, res)=>{
     const {id, fairy_no} = req.query;
     try{
@@ -74,8 +87,9 @@ app.get('/FindUnlockEpi', async(req, res)=>{
     }
 });
 
+
 app.get('/FindUnlockFairy', async(req, res)=>{
-    const {id} = req.query; //get방식은 query라고 함
+    const {id} = req.query; //get방식은 query
     try{
         const result = await FindUnlockFairy(id);
         res.status(200).json({
@@ -83,6 +97,20 @@ app.get('/FindUnlockFairy', async(req, res)=>{
         })
     }catch(error){
         console.error('오류 뜰 수가 없음', error);
+        res.status(500).json({ error: 'An error occurred while find FAIRYTALE.' });
+    }
+});
+
+app.get('/CollectedWords', async(req, res)=>{
+    const {id} = req.query; //get방식은 query
+    try{
+        const result = await CollectedWords(id);
+        res.status(200).json({
+            eng : result.eng,
+            img : result.img
+        })
+    }catch(error){
+        console.error(error);
         res.status(500).json({ error: 'An error occurred while find FAIRYTALE.' });
     }
 });

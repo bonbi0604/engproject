@@ -105,10 +105,11 @@ app.get('/CollectedWords', async(req, res)=>{
     const {id} = req.query; //get방식은 query
     try{
         const result = await CollectedWords(id);
-        res.status(200).json({
-            eng : result.eng,
-            img : result.img
-        })
+        if(result.length === 0){
+            res.status(404).json({message : 'error'});
+        }else{
+            res.status(200).json(result);
+        }
     }catch(error){
         console.error(error);
         res.status(500).json({ error: 'An error occurred while find FAIRYTALE.' });

@@ -9,7 +9,7 @@ const {FindUnlockFairy} = require('./FindUnlockFairy')
 const {saveEpi} = require('./saveEpi')
 const {CollectedWords} = require('./CollectedWords')
 const {gatherWord} = require('./gatherWord')
-const {Card} = require('./Card')
+const {Cards} = require('./Cards')
 const crypto = require('crypto');
 const app = express();
 const port = 3306;
@@ -117,10 +117,10 @@ app.get('/CollectedWords', async(req, res)=>{
     }
 });
 
-app.get('/Card', async(req, res)=>{
+app.get('/Cards', async(req, res)=>{
     const {eng} = req.query;
     try{
-        const result = await Card(eng);
+        const result = await Cards(eng);
         res.status(200).json({
             kor: result.kor,
             img : result.img,

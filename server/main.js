@@ -9,6 +9,7 @@ const {FindUnlockFairy} = require('./FindUnlockFairy')
 const {saveEpi} = require('./saveEpi')
 const {CollectedWords} = require('./CollectedWords')
 const {gatherWord} = require('./gatherWord')
+const {Card} = require('./Card')
 const crypto = require('crypto');
 const app = express();
 const port = 3306;
@@ -113,6 +114,21 @@ app.get('/CollectedWords', async(req, res)=>{
     }catch(error){
         console.error(error);
         res.status(500).json({ error: 'An error occurred while find FAIRYTALE.' });
+    }
+});
+
+app.get('/Card', async(req, res)=>{
+    const {eng} = req.query;
+    try{
+        const result = await Card(eng);
+        res.status(200).json({
+            kor: result.kor,
+            img : result.img,
+            pronoun : result.pronoun
+        })
+    }catch(error){
+        console.error('Something Wrong with: ', error);
+        res.status(500).json({ error});
     }
 });
 

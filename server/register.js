@@ -4,7 +4,9 @@ const addUser = async (id, passwd) => {
     if (!id || !passwd) {
         throw new Error('ID and password are required.');
     }
-    const crypt_passwd = crypto.createHash('sha512',2024).update(passwd).digest('base64');
+    const salt = crypto.randomBytes(16).toString('hex')
+    const crypt_passwd = crypto.pbkdf2Sync(passwd, salt, 1000, 64, 'sha512').toString('hex');
+
     const [result] = await pool.query(
         'INSERT INTO user (id, passwd) VALUES (?, ?)',
         [id, crypt_passwd]

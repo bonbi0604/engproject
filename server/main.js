@@ -7,6 +7,7 @@ const {login} = require('./login');
 const {FindUnlockEpi} = require('./FindUnlockEpi')
 const {FindUnlockFairy} = require('./FindUnlockFairy')
 const {saveEpi} = require('./saveEpi')
+const {saveWords} = require('./saveWords')
 const crypto = require('crypto');
 const app = express();
 const port = 3306;
@@ -59,6 +60,16 @@ app.post('/addUsers', async (req, res) => {
         res.status(500).json({ message: 'Failed to add user.' });
     }
 });
+
+app.post('/saveWords', async (req, res) => {
+    try {
+        await saveWords(req, res);
+    } catch (error) {
+        console.error('Error in saveWords:', error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
+
 
 app.get('/FindUnlockEpi', async(req, res)=>{
     const {id, fairy_no} = req.body;

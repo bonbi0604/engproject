@@ -3,6 +3,14 @@ const pool = require('./db');
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 
+// 랜덤 비밀 키 생성 함수
+const generateRandomKey = (length) => {
+    return crypto.randomBytes(length).toString('hex');
+};
+
+// 비밀 키를 생성하거나 환경 변수에서 가져오기
+const my_key = process.env.JWT_SECRET || generateRandomKey(32); // 32바이트 키 생성
+
 const login = async (req, id, passwd) => {
     try {
         const [rows] = await pool.query('SELECT salt FROM user WHERE id = ?', [id]);

@@ -26,4 +26,3 @@ const login = async(req, id, passwd)=>{
 module.exports ={
     login
 };
-

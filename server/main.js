@@ -10,6 +10,7 @@ const {saveEpi} = require('./saveEpi')
 const {CollectedWords} = require('./CollectedWords')
 const {gatherWord} = require('./gatherWord')
 const {Cards} = require('./Cards')
+const {saveWords} = require('./saveWords')
 const crypto = require('crypto');
 const app = express();
 const port = 3306;
@@ -73,6 +74,16 @@ app.post('/gatherWord', async (req, res) => {
         res.status(500).json({ message: 'Failed to add YOUR WORD.' });
     }
 });
+
+app.post('/saveWords', async (req, res) => {
+    try {
+        await saveWords(req, res);
+    } catch (error) {
+        console.error('Error in saveWords:', error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
+
 
 app.get('/FindUnlockEpi', async(req, res)=>{
     const {id, fairy_no} = req.query;

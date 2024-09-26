@@ -5,7 +5,6 @@ const addUser = async (id, passwd) => {
     if (!id || !passwd) {
         throw new Error('ID and password are required.');
     }
-
     // Salt 생성
     const salt = crypto.randomBytes(16).toString('hex');
     // 비밀번호 해싱

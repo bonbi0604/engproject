@@ -1,8 +1,8 @@
 const pool = require('./db');
 
 const saveWords = async (req, res) => {
-    const id = req.body.id;       
-    const words = req.body.vocabs;
+    const id = req.query.id;       
+    const words = req.query.vocabs;
 
     if (!words || !Array.isArray(words)) {
         return res.status(400).json({ message: 'Invalid words data.' });

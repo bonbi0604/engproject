@@ -12,8 +12,10 @@ const {gatherWord} = require('./gatherWord')
 const {Cards} = require('./Cards')
 const {saveWords} = require('./saveWords')
 const crypto = require('crypto');
+const bodyParser = require('body-parser');
 const app = express();
 const port = 3306;
+app.use(bodyParser.json());
 
 
 const sessionSecret = crypto.randomBytes(128).toString('base64');

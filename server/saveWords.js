@@ -1,12 +1,11 @@
 const pool = require('./db');
 
 const saveWords = async (req, res) => {
-    const ids = req.body.id;       
+    const id = req.body.id;       
     const words = req.body.vocabs;
 
     try{
-        for(let i = 0; i < id.length;i++){
-            let id = ids[i];
+        for(let i = 0; i < words.length;i++){
             let word = words[i];
 
             const [rows] = await pool.query(
@@ -22,8 +21,6 @@ const saveWords = async (req, res) => {
         console.error('Database error:', error);
         res.status(500).json({ message: 'Failed to save words.' });
     }
-
-    res.send('Episode saved successfully');
 };
 
 module.exports = {

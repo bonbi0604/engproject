@@ -8,6 +8,7 @@ const {FindUnlockEpi} = require('./FindUnlockEpi')
 const {FindUnlockFairy} = require('./FindUnlockFairy')
 const {saveEpi} = require('./saveEpi')
 const {saveWords} = require('./saveWords')
+const {stuff_place} = require('./stuff_place')
 const crypto = require('crypto');
 const app = express();
 const port = 3306;
@@ -16,9 +17,7 @@ const port = 3306;
 const sessionSecret = crypto.randomBytes(128).toString('base64');
 process.env.SESSION_SECRET = sessionSecret || process.env.SESSION_SECRET;
 
-
 app.use(express.json());
-
 app.post('/login', async(req, res)=>{
     const { id, passwd} = req.body;
     if (!id || !passwd) {
@@ -46,6 +45,17 @@ app.post('/saveEpi', async(req, res)=>{
     }
 });
 
+app.post('/stuff_place', async(req, res) =>{
+    const {id} = req.body;
+    try{
+        const result = await stuff_place(id);
+        res.status(200).json({message : '성공적으로 불러왔습니다.'});
+    }catch(error){
+        console.log("Error : " , error);
+    }
+    
+});
+
 
 app.post('/addUsers', async (req, res) => {
     const { id, passwd } = req.body;
@@ -60,6 +70,7 @@ app.post('/addUsers', async (req, res) => {
         res.status(500).json({ message: 'Failed to add user.' });
     }
 });
+
 
 app.post('/saveWords', async (req, res) => {
     try {

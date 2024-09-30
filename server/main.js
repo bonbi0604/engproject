@@ -11,6 +11,7 @@ const {CollectedWords} = require('./CollectedWords')
 const {gatherWord} = require('./gatherWord')
 const {Cards} = require('./Cards')
 const {saveWords} = require('./saveWords')
+const {stuff_place} = require('./stuff_place')
 const crypto = require('crypto');
 const bodyParser = require('body-parser');
 const app = express();
@@ -21,9 +22,7 @@ app.use(bodyParser.json());
 const sessionSecret = crypto.randomBytes(128).toString('base64');
 process.env.SESSION_SECRET = sessionSecret || process.env.SESSION_SECRET;
 
-
 app.use(express.json());
-
 app.post('/login', async(req, res)=>{
     const { id, passwd} = req.body;
     if (!id || !passwd) {
@@ -49,6 +48,17 @@ app.post('/saveEpi', async(req, res)=>{
     }catch(error){
         res.status(500).json({message: 'ERROR OCCURED', error: error.message})
     }
+});
+
+app.post('/stuff_place', async(req, res) =>{
+    const {id} = req.body;
+    try{
+        const result = await stuff_place(id);
+        res.status(200).json({message : '성공적으로 불러왔습니다.'});
+    }catch(error){
+        console.log("Error : " , error);
+    }
+    
 });
 
 

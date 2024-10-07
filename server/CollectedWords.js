@@ -3,11 +3,11 @@ const pool = require('./db');
 const CollectedWords = async(id) =>{
     try{
         const [result] = await pool.query(
-            `SELECT w.eng, w.img 
-            FROM collectwords AS cw 
-            JOIN words AS w 
-            ON cw.epi_no = w.epi_no and cw.fairy_no = w.fairy_no 
-            WHERE cw.id =?`, [id]);
+            `SELECT w.eng, w.img
+            FROM collected_vocab AS cv
+            JOIN words AS w
+            ON cv.word_no = w.word_no
+            WHERE cv.id =?`, [id]);
         if(result.length===0){
             return {
                 eng : 0,

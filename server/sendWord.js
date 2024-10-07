@@ -10,7 +10,7 @@ const sendWord = async(fairy_no, epi_no) =>{
         }
     }
     console.log(result);
-    return [result]
+    return [result];
 }
 
 

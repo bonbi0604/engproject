@@ -62,8 +62,8 @@ app.post('/stuff_place', async(req, res) =>{
     
 });
 
-app.post('/sendWord', async(req, res) =>{
-    const {fairy_no, epi_no} = req.body;
+app.get('/sendWord', async(req, res) =>{
+    const {fairy_no, epi_no} = req.query;
     try{
         const result = await sendWord(fairy_no, epi_no);
         res.status(200).json({message : '성공적으로 불러왔습니다.'});

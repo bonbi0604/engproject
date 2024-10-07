@@ -9,6 +9,7 @@ const {FindUnlockFairy} = require('./FindUnlockFairy')
 const {saveEpi} = require('./saveEpi')
 const {saveWords} = require('./saveWords')
 const {stuff_place} = require('./stuff_place')
+const {sendWord} = require('./sendWord')
 const crypto = require('crypto');
 const app = express();
 const port = 3306;
@@ -49,6 +50,17 @@ app.post('/stuff_place', async(req, res) =>{
     const {id} = req.body;
     try{
         const result = await stuff_place(id);
+        res.status(200).json({message : '성공적으로 불러왔습니다.'});
+    }catch(error){
+        console.log("Error : " , error);
+    }
+    
+});
+
+app.post('/sendWord', async(req, res) =>{
+    const {fairy_no, epi_no} = req.body;
+    try{
+        const result = await sendWord(fairy_no, epi_no);
         res.status(200).json({message : '성공적으로 불러왔습니다.'});
     }catch(error){
         console.log("Error : " , error);

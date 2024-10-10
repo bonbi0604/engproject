@@ -70,7 +70,6 @@ app.get('/sendWord', async(req, res) =>{
     }catch(error){
         console.log("Error : " , error);
     }
-    
 });
 
 

@@ -9,8 +9,11 @@ const sendWord = async(fairy_no, epi_no) =>{
 
     let arr = [];
     for (let i = 0; i < result.length; i++) {
-    arr.push(result[i].eng);
-}
+        console.log(result[i].eng);
+        arr.push(result[i].eng);
+    }
+
+    console.log(typeof(arr));
 
 return arr;
 }
